@@ -1,0 +1,153 @@
+-- MySQL dump 10.16  Distrib 10.1.26-MariaDB, for Win32 (AMD64)
+--
+-- Host: localhost    Database: player
+-- ------------------------------------------------------
+-- Server version	10.1.26-MariaDB
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `body_part`
+--
+
+DROP TABLE IF EXISTS `body_part`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `body_part` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `body_part`
+--
+
+LOCK TABLES `body_part` WRITE;
+/*!40000 ALTER TABLE `body_part` DISABLE KEYS */;
+/*!40000 ALTER TABLE `body_part` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `body_stuff`
+--
+
+DROP TABLE IF EXISTS `body_stuff`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `body_stuff` (
+  `id` int(11) NOT NULL,
+  `id_Stuff` int(11) NOT NULL,
+  `id_Body_part` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`id_Stuff`,`id_Body_part`),
+  KEY `FK_Body_stuff_id_Stuff` (`id_Stuff`),
+  KEY `FK_Body_stuff_id_Body_part` (`id_Body_part`),
+  CONSTRAINT `FK_Body_stuff_id` FOREIGN KEY (`id`) REFERENCES `player` (`id`),
+  CONSTRAINT `FK_Body_stuff_id_Body_part` FOREIGN KEY (`id_Body_part`) REFERENCES `body_part` (`id`),
+  CONSTRAINT `FK_Body_stuff_id_Stuff` FOREIGN KEY (`id_Stuff`) REFERENCES `stuff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `body_stuff`
+--
+
+LOCK TABLES `body_stuff` WRITE;
+/*!40000 ALTER TABLE `body_stuff` DISABLE KEYS */;
+/*!40000 ALTER TABLE `body_stuff` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `compatibility`
+--
+
+DROP TABLE IF EXISTS `compatibility`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `compatibility` (
+  `id` int(11) NOT NULL,
+  `id_Stuff` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`id_Stuff`),
+  KEY `FK_Compatibility_id_Stuff` (`id_Stuff`),
+  CONSTRAINT `FK_Compatibility_id` FOREIGN KEY (`id`) REFERENCES `body_part` (`id`),
+  CONSTRAINT `FK_Compatibility_id_Stuff` FOREIGN KEY (`id_Stuff`) REFERENCES `stuff` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `compatibility`
+--
+
+LOCK TABLES `compatibility` WRITE;
+/*!40000 ALTER TABLE `compatibility` DISABLE KEYS */;
+/*!40000 ALTER TABLE `compatibility` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `player`
+--
+
+DROP TABLE IF EXISTS `player`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `player` (
+  `id` int(11) NOT NULL,
+  `pseudo` varchar(25) NOT NULL,
+  `created_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `player`
+--
+
+LOCK TABLES `player` WRITE;
+/*!40000 ALTER TABLE `player` DISABLE KEYS */;
+/*!40000 ALTER TABLE `player` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stuff`
+--
+
+DROP TABLE IF EXISTS `stuff`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stuff` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `power_attack` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stuff`
+--
+
+LOCK TABLES `stuff` WRITE;
+/*!40000 ALTER TABLE `stuff` DISABLE KEYS */;
+/*!40000 ALTER TABLE `stuff` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-10-20  9:47:43
